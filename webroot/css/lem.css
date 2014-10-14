@@ -1,0 +1,56 @@
+/* Make Bootstrap dropdown menus activate on hover */
+ul.nav li.dropdown > ul.dropdown-menu{
+    margin-top: -1px;
+}
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;
+}
+#navbar p {
+    margin-top: 10px;
+    padding: 5px;
+}
+#navbar .nav > li > a {
+    font-weight: bold;
+    font-size: 16px;
+}
+#navbar .nav > li > a:hover {
+    text-decoration: underline
+}
+#cart-status {
+    border: 1px solid #d4d4d4;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.065);
+    -moz-box-shadow: 0 1px 4px rgba(0,0,0,0.065);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.065);
+    background-color: #fff;
+}
+#sidebar {
+    margin-top: 20px
+}
+.product-box {
+    min-height: 360px;
+}
+.product-box img {
+    max-width: 250px;
+    margin: 10px 0;
+}
+#product-thumbnails {
+    margin: 10px;
+}
+#product-thumbnails img {
+    max-height: 175px;
+}
+#flashMessage {
+    padding: 8px 35px 8px 14px;
+    margin-bottom: 20px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    border: 1px solid #fbeed5;
+    -webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
+    color: #3a87ad;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}

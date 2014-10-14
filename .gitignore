@@ -1,0 +1,9 @@
+tmp/logs/*
+tmp/sessions/*
+tmp/tests/*
+tmp/cache/persistent/*
+tmp/cache/models/*
+tmp/cache/views/*
+webroot/files/invoices/*
+webroot/img/products/*
+webroot/js/*.js
