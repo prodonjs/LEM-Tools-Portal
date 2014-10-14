@@ -1,15 +1,15 @@
 <div class="orders index">
-	<h2>My Orders</h2>
-	<?php
-	//echo $this->Form->create('Order', array('action' => 'index'));
+    <h2>My Orders</h2>
+    <?php
+    //echo $this->Form->create('Order', array('action' => 'index'));
     //echo $this->Form->input('name', array('label' => 'Name'));
-	//echo $this->Form->input('account_no', array('label' => 'Account Number'));
-	//echo $this->Form->end(array('label' => 'Search', 'class' => 'btn'));
+    //echo $this->Form->input('account_no', array('label' => 'Account Number'));
+    //echo $this->Form->end(array('label' => 'Search', 'class' => 'btn'));
     ?>
-	<?php
+    <?php
     echo $this->element('paging');
-	echo $this->element('pagination'); ?>
-	<table class="table">
+    echo $this->element('pagination'); ?>
+    <table class="table">
         <thead>
             <tr>
                 <th>&nbsp;</th>
@@ -26,7 +26,7 @@
         </thead>
         <tbody>
             <?php foreach($orders as $o) { ?>
-			<tr>
+            <tr>
                 <td>
                     <?php
                     echo $this->Html->link('View', array('action' => 'view', $o['Order']['id']), array(
@@ -37,40 +37,40 @@
                 <td>
                     <?php printf('%06d', $o['Order']['id']); ?>
                 </td>
-				<td>
-					<?php echo h($o['Order']['purchase_order']); ?>
-				</td>
-				<td>
-					<?php
+                <td>
+                    <?php echo h($o['Order']['purchase_order']); ?>
+                </td>
+                <td>
+                    <?php
                     $statuses = Configure::read('Orders.statuses');
                     echo $statuses[$o['Order']['status']];
                     ?>
-				</td>
+                </td>
                 <td><?php echo $this->Number->format($o['Order']['quantity']); ?></th>
                 <td><?php echo $this->Number->currency($o['Order']['price'], 'USD'); ?></th>
-				<td>
-					<?php
+                <td>
+                    <?php
                     if(!is_null($o['Order']['submitted'])) {
                         echo date('n/j/Y g:i A', strtotime($o['Order']['submitted']));
                     }
                     ?>
-				</td>
+                </td>
                 <td>
-					<?php
+                    <?php
                     if(!is_null($o['Order']['completed'])) {
                         echo date('n/j/Y g:i A', strtotime($o['Order']['completed']));
                     }
                     ?>
-				</td>
+                </td>
                 <td>
-					<?php echo h($o['Order']['work_order_no']); ?>
-				</td>
+                    <?php echo h($o['Order']['work_order_no']); ?>
+                </td>
                 <td>
-					<?php echo h($o['Order']['invoice_no']); ?>
-				</td>
-			</tr>
-		<?php } ?>
+                    <?php echo h($o['Order']['invoice_no']); ?>
+                </td>
+            </tr>
+        <?php } ?>
         </tbody>
-	</table>
-	<?php echo $this->element('pagination'); ?>
+    </table>
+    <?php echo $this->element('pagination'); ?>
 </div>

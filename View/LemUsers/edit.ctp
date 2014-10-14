@@ -10,19 +10,19 @@
  */
 ?>
 <div class="users form">
-	<?php echo $this->Form->create($model, array(
+    <?php echo $this->Form->create($model, array(
         'inputDefaults' => array(
             'error' => array('attributes' => array('class' => 'alert alert-error'))
         )
     )); ?>
-		<fieldset>
-			<legend>Edit Your Profile</legend>
-			<?php
-				echo $this->Form->input('UserDetail.first_name', array(
+        <fieldset>
+            <legend>Edit Your Profile</legend>
+            <?php
+                echo $this->Form->input('UserDetail.first_name', array(
                     'value' => isset($this->request->data['UserDetail']['LemUser']['first_name']) ?
                         h($this->request->data['UserDetail']['LemUser']['first_name']) : ''
                 ));
-				echo $this->Form->input('UserDetail.last_name', array(
+                echo $this->Form->input('UserDetail.last_name', array(
                     'value' => isset($this->request->data['UserDetail']['LemUser']['last_name']) ?
                         h($this->request->data['UserDetail']['LemUser']['last_name']) : ''
                 ));
@@ -30,7 +30,7 @@
                     'value' => isset($this->request->data['UserDetail']['LemUser']['company']) ?
                         h($this->request->data['UserDetail']['LemUser']['company']) : ''
                 ));
-				echo $this->Form->input('UserDetail.phone', array(
+                echo $this->Form->input('UserDetail.phone', array(
                     'value' => isset($this->request->data['UserDetail']['LemUser']['phone']) ?
                         h($this->request->data['UserDetail']['LemUser']['phone']) : ''
                 ));
@@ -42,12 +42,12 @@
                     'value' => isset($this->request->data['UserDetail']['LemUser']['title']) ?
                         h($this->request->data['UserDetail']['LemUser']['title']) : ''
                 ));
-			?>
-			<p>
-				<?php echo $this->Html->link(__d('users', 'Change your password'), array(
+            ?>
+            <p>
+                <?php echo $this->Html->link(__d('users', 'Change your password'), array(
                     'action' => 'change_password'), array('class' => 'btn'));
                 ?>
-			</p>
-		</fieldset>
-	<?php echo $this->Form->end(array('label' => 'Save Changes', 'class' => 'btn')); ?>
+            </p>
+        </fieldset>
+    <?php echo $this->Form->end(array('label' => 'Save Changes', 'class' => 'btn')); ?>
 </div>

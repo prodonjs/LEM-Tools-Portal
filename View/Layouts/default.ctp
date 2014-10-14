@@ -38,7 +38,7 @@
     ?>
 </head>
 <body>
-	<div class="container">
+    <div class="container">
         <?php echo $this->element('navbar'); ?>
         <div class="row">
             <div id="sidebar" class="span2">
@@ -56,10 +56,10 @@
                 ?>
             </div>
         </div>
-		<footer id="footer">
+        <footer id="footer">
             <?php echo $this->element('sql_dump'); ?>
         </footer>
-	</div>
+    </div>
 
     <!-- JS Includes -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

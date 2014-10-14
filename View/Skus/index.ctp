@@ -15,9 +15,9 @@
             <small><?php echo h($product['Product']['description']);?></small>
         </p>
     </div>
-	<?php
+    <?php
     echo $this->element('paging');
-	echo $this->element('pagination');
+    echo $this->element('pagination');
     ?>
     <?php
     echo $this->Form->create('Order', array('action' => 'add'));
@@ -35,7 +35,7 @@
     ));
     echo $this->Form->submit('Add Items to Cart', array('class' => 'btn btn-inverse'));
     ?>
-	<table class="table">
+    <table class="table">
         <thead>
             <tr>
                 <th><?php echo $this->Paginator->sort('part_no', 'Part No'); ?></th>
@@ -49,11 +49,11 @@
             $i = 0;
             foreach($skus as $sku) {
             ?>
-			<tr>
+            <tr>
                 <td><?php echo h($sku['Sku']['part_no']); ?></td>
                 <td><?php echo h($sku['Sku']['name']); ?></td>
                 <td><?php echo $this->Number->currency($sku['Sku']['price'], 'USD'); ?></td>
-				<td>
+                <td>
                     <?php
                     echo $this->Form->input('OrderLine.' . $i . '.sku_id', array(
                         'type' => 'hidden',
@@ -79,11 +79,11 @@
                     $i++;
                     ?>
                 </td>
-			</tr>
-		<?php } ?>
+            </tr>
+        <?php } ?>
         </tbody>
-	</table>
-	<?php
+    </table>
+    <?php
     echo $this->Form->submit('Add Items to Cart', array('class' => 'btn btn-inverse'));
     echo $this->Form->end();
     echo $this->element('pagination');

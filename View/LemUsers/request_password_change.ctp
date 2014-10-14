@@ -15,12 +15,12 @@
     Please enter the email you used for registration and you'll get an email with further instructions.
 </p>
 <?php
-	echo $this->Form->create($model, array(
-		'url' => array(
-			'admin' => false,
-			'action' => 'reset_password')));
-	echo $this->Form->input('email', array(
-		'label' => __d('users', 'Your Email Address')));
-	echo $this->Form->end(array('label' => 'Register', 'class' => 'btn'));
+    echo $this->Form->create($model, array(
+        'url' => array(
+            'admin' => false,
+            'action' => 'reset_password')));
+    echo $this->Form->input('email', array(
+        'label' => __d('users', 'Your Email Address')));
+    echo $this->Form->end(array('label' => 'Register', 'class' => 'btn'));
 ?>
 </div>

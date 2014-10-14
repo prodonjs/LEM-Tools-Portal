@@ -1,5 +1,5 @@
 <div class="users form">
-	<?php echo $this->Form->create($model, array(
+    <?php echo $this->Form->create($model, array(
         'inputDefaults' => array(
             'error' => array('attributes' => array('class' => 'alert alert-error'))
         )

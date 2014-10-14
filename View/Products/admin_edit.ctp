@@ -6,12 +6,12 @@
         )
     ));
     ?>
-	<fieldset>
-		<legend>Edit Product - <?php echo h($this->request->data['Product']['name']); ?></legend>
-	<?php
+    <fieldset>
+        <legend>Edit Product - <?php echo h($this->request->data['Product']['name']); ?></legend>
+    <?php
         echo $this->Form->input('id');
-		echo $this->Form->input('name', array('class' => 'span5'));
-		echo $this->Form->input('description', array('class' => 'span5'));
+        echo $this->Form->input('name', array('class' => 'span5'));
+        echo $this->Form->input('description', array('class' => 'span5'));
         echo $this->Form->input('rank', array('label' => 'Catalog Order'));
         echo $this->Form->input('is_active', array('label' => 'Active?'));
     ?>
@@ -90,6 +90,6 @@
                 <?php } ?>
             </tbody>
         </table>
-	</fieldset>
+    </fieldset>
 <?php echo $this->Form->end(array('label' => 'Submit', 'class' => 'btn')); ?>
 </div>

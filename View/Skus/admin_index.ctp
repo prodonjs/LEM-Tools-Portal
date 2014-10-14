@@ -10,7 +10,7 @@
  */
 ?>
 <div class="skus index">
-	<h2>SKU Administration</h2>
+    <h2>SKU Administration</h2>
     <p>
         <h3><?php echo h($product['Product']['name']);?></h3>
         <?php echo h($product['Product']['description']);?>
@@ -21,10 +21,10 @@
         ), array('class' => 'btn btn-inverse'));
         ?>
     </p>
-	<?php
+    <?php
     echo $this->element('paging');
-	echo $this->element('pagination'); ?>
-	<table class="table">
+    echo $this->element('pagination'); ?>
+    <table class="table">
         <thead>
             <tr>
                 <th>&nbsp;</th>
@@ -38,7 +38,7 @@
         </thead>
         <tbody>
             <?php foreach($skus as $sku) { ?>
-			<tr>
+            <tr>
                 <td>
                     <?php
                     echo $this->Html->link('Edit', array('admin' => true, 'action' => 'edit', $sku['Sku']['id']), array(
@@ -48,17 +48,17 @@
                 </td>
                 <td><?php echo h($sku['Sku']['part_no']); ?></td>
                 <td><?php echo h($sku['Sku']['alternative_part_no']); ?></td>
-				<td><?php echo h($sku['Sku']['name']); ?></td>
+                <td><?php echo h($sku['Sku']['name']); ?></td>
                 <td><?php echo $this->Number->currency($sku['Sku']['price'], 'USD'); ?></td>
-				<td>
-					<?php echo $sku['Sku']['is_active'] == 1 ? 'Yes' : 'No'; ?>
-				</td>
-				<td>
-					<?php echo date('n/j/Y', strtotime($sku['Sku']['created'])); ?>
-				</td>
-			</tr>
-		<?php } ?>
+                <td>
+                    <?php echo $sku['Sku']['is_active'] == 1 ? 'Yes' : 'No'; ?>
+                </td>
+                <td>
+                    <?php echo date('n/j/Y', strtotime($sku['Sku']['created'])); ?>
+                </td>
+            </tr>
+        <?php } ?>
         </tbody>
-	</table>
-	<?php echo $this->element('pagination'); ?>
+    </table>
+    <?php echo $this->element('pagination'); ?>
 </div>

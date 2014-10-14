@@ -1,5 +1,5 @@
 <div class="users form">
-	<h2>Register for the LEM Tools Customer Portal</h2>
+    <h2>Register for the LEM Tools Customer Portal</h2>
     <p>
         Please complete the form below. Once reviewed by our sales department, you will be given
         instructions on how to activate your login and begin using the LEM Tools portal to purchase from us.

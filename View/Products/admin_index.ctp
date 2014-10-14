@@ -10,14 +10,14 @@
  */
 ?>
 <div class="products index">
-	<h2>Product Administration</h2>	
+    <h2>Product Administration</h2>    
     <p>
         <?php echo $this->Html->link('Add Product', array('action' => 'add'), array('class' => 'btn btn-inverse')); ?>
     </p>
-	<?php
+    <?php
     echo $this->element('paging');
-	echo $this->element('pagination'); ?>
-	<table class="table">
+    echo $this->element('pagination'); ?>
+    <table class="table">
         <thead>
             <tr>
                 <th>&nbsp;</th>
@@ -29,7 +29,7 @@
         </thead>
         <tbody>
             <?php foreach($products as $product) { ?>
-			<tr>
+            <tr>
                 <td>
                     <?php 
                     echo $this->Html->link('Edit', array('admin' => true, 'action' => 'edit', $product['Product']['id']), array(
@@ -43,7 +43,7 @@
                     ));
                     ?>
                 </td>
-				<td><?php echo h($product['Product']['name']); ?></td>
+                <td><?php echo h($product['Product']['name']); ?></td>
                 <td>
                     <?php
                     if(!empty($product['ProductImage'])) {
@@ -61,15 +61,15 @@
                     }
                     ?>
                 </td>
-				<td>
-					<?php echo $product['Product']['is_active'] == 1 ? 'Yes' : 'No'; ?>
-				</td>
-				<td>
-					<?php echo date('n/j/Y', strtotime($product['Product']['created'])); ?>
-				</td>				
-			</tr>            
-		<?php } ?>
+                <td>
+                    <?php echo $product['Product']['is_active'] == 1 ? 'Yes' : 'No'; ?>
+                </td>
+                <td>
+                    <?php echo date('n/j/Y', strtotime($product['Product']['created'])); ?>
+                </td>                
+            </tr>            
+        <?php } ?>
         </tbody>
-	</table>
-	<?php echo $this->element('pagination'); ?>
+    </table>
+    <?php echo $this->element('pagination'); ?>
 </div>

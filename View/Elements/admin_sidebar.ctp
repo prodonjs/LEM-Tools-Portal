@@ -1,6 +1,6 @@
 <p class="label label-important">Administrative Functions</p>
 <div id="admin-sidebar">
-	<ul class="nav nav-tabs nav-stacked">
+    <ul class="nav nav-tabs nav-stacked">
         <li class="dropdown">
             <?php
             /* Get unconfirmed users */
@@ -102,5 +102,5 @@
                 </li>
             </ul>
         </li>
-	</ul>
+    </ul>
 </div>

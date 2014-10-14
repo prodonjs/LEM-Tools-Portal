@@ -10,25 +10,25 @@
  */
 ?>
 <div class="users index">
-	<h2>User Administration</h2>
-	<?php
-	echo $this->Form->create($model, array('action' => 'index'));
+    <h2>User Administration</h2>
+    <?php
+    echo $this->Form->create($model, array('action' => 'index'));
     echo $this->Form->input('username', array('label' => __d('users', 'Username')));
-	echo $this->Form->input('email', array('label' => __d('users', 'Email'), 'type' => 'text'));
+    echo $this->Form->input('email', array('label' => __d('users', 'Email'), 'type' => 'text'));
     echo $this->Form->input('unconfirmed', array(
         'type' => 'checkbox',
         'hiddenField' => false,
         'label' => 'Unconfirmed?'
     ));
     $this->Form->unlockField('LemUser.unconfirmed');
-	echo $this->Form->end(array('label' => 'Search', 'class' => 'btn'));
-	?>
+    echo $this->Form->end(array('label' => 'Search', 'class' => 'btn'));
+    ?>
     <p>
         <?php echo $this->Html->link('Add User', array('action' => 'add'), array('class' => 'btn btn-inverse')); ?>
     </p>
-	<?php echo $this->element('paging'); ?>
-	<?php echo $this->element('pagination'); ?>
-	<table class="table">
+    <?php echo $this->element('paging'); ?>
+    <?php echo $this->element('pagination'); ?>
+    <table class="table">
         <thead>
             <tr>
                 <th>&nbsp;</th>
@@ -43,7 +43,7 @@
         </thead>
         <tbody>
             <?php foreach($users as $user) { ?>
-			<tr>
+            <tr>
                 <td>
                     <?php
                     echo $this->Html->link('Edit', array('admin' => true, 'action' => 'edit', $user[$model]['id']), array(
@@ -51,22 +51,22 @@
                     ));
                     ?>
                 </td>
-				<td>
-					<?php echo h($user[$model]['username']); ?>
-				</td>
-				<td>
-					<?php echo h($user[$model]['email']); ?>
-				</td>
                 <td>
-					<?php if(!is_null($user[$model]['customer_id'])) :
+                    <?php echo h($user[$model]['username']); ?>
+                </td>
+                <td>
+                    <?php echo h($user[$model]['email']); ?>
+                </td>
+                <td>
+                    <?php if(!is_null($user[$model]['customer_id'])) :
                         echo h("{$user['Customer']['account_no']} | {$user['Customer']['name']}");
                     ?>
                     <?php else : ?>
                     <span class="label label-important">Unassigned</span>
                     <?php endif; ?>
-				</td>
-				<td>
-					<?php if($user[$model]['email_verified']) : ?>
+                </td>
+                <td>
+                    <?php if($user[$model]['email_verified']) : ?>
                     Yes
                     <?php else : ?>
                     <span class="label label-important">No</span>
@@ -86,22 +86,22 @@
                         endif;
                         ?>
                     <?php endif; ?>
-				</td>
-				<td>
-					<?php echo $user[$model]['active'] == 1 ? __d('users', 'Yes') : __d('users', 'No'); ?>
-				</td>
-				<td>
-					<?php echo date('n/j/Y', strtotime($user[$model]['created'])); ?>
-				</td>
-				<td>
-					<?php
+                </td>
+                <td>
+                    <?php echo $user[$model]['active'] == 1 ? __d('users', 'Yes') : __d('users', 'No'); ?>
+                </td>
+                <td>
+                    <?php echo date('n/j/Y', strtotime($user[$model]['created'])); ?>
+                </td>
+                <td>
+                    <?php
                         $roles = Configure::read('Users.roles');
                         echo $roles[$user[$model]['role']];
                     ?>
-				</td>
-			</tr>
-		<?php } ?>
+                </td>
+            </tr>
+        <?php } ?>
         </tbody>
-	</table>
-	<?php echo $this->element('pagination'); ?>
+    </table>
+    <?php echo $this->element('pagination'); ?>
 </div>
