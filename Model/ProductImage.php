@@ -14,28 +14,28 @@ class ProductImage extends AppModel {
             'file' => array(
                 'nameCallback' => 'nameCallback',
                 'uploadDir' => 'img/products/',
-    			'overwrite' => true,
-    			'stopSave' => true,
-    			'allowEmpty' => true,
-    			'transforms' => array(
-    			    'thumbnail_file' => array(
-    			        'method' => 'resize',
-    			        'uploadDir' => 'img/products/',
-    			        'width' => 150,
-    			        'expand' => true,
-    			        'aspect' => true
-			        )
-			    )
+                'overwrite' => true,
+                'stopSave' => true,
+                'allowEmpty' => true,
+                'transforms' => array(
+                    'thumbnail_file' => array(
+                        'method' => 'resize',
+                        'uploadDir' => 'img/products/',
+                        'width' => 150,
+                        'expand' => true,
+                        'aspect' => true
+                    )
+                )
             )
         ),
         'Uploader.FileValidation' => array(
             'file' => array(
-                'required'	=> array(
+                'required'  => array(
                     'value' => true,
                     'allowEmpty' => false,
                     'message' => 'You must specify an image file to upload'
                 ),
-                'extension'	=> array(
+                'extension' => array(
                     'value' => array('jpg', 'jpeg', 'png'),
                     'message' => 'File must be a JPEG or PNG image'
                 )
@@ -69,20 +69,20 @@ class ProductImage extends AppModel {
  *
  * @var array
  */
-	public $belongsTo = array(
-		'Product' => array(
-			'className' => 'Product',
-			'foreignKey' => 'product_id'
-		)
-	);
+    public $belongsTo = array(
+        'Product' => array(
+            'className' => 'Product',
+            'foreignKey' => 'product_id'
+        )
+    );
 
 /**
  * Used to format the name for this picture
  * @param string $name
  * @param Transit\File $file
  */
-	public function nameCallback($name, Transit\File $file) {
-	    return strtolower(Inflector::slug($this->data[$this->alias]['name']));
-	} // end nameCallback()
+    public function nameCallback($name, Transit\File $file) {
+        return strtolower(Inflector::slug($this->data[$this->alias]['name']));
+    } // end nameCallback()
 
 } // end class ProductImage

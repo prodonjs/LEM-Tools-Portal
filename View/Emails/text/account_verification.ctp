@@ -15,10 +15,10 @@ echo "Your user information has been confirmed by our administrators. ";
 echo "Please click the link below within 24 hours to confirm your registration.\n\n";
 
 echo Router::url(array(
-    'admin' => false, 
-    'controller' => 'lem_users', 
-    'action' => 'verify', 
-    'email', 
+    'admin' => false,
+    'controller' => 'lem_users',
+    'action' => 'verify',
+    'email',
     $user[$model]['email_token']
 ), true) . "\n\n";
 

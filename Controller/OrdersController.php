@@ -53,15 +53,15 @@ class OrdersController extends AppController {
  *
  * @return void
  */
-	public function index() {
+    public function index() {
         $this->Paginator->settings[$this->modelClass]['findType'] = 'orderIndex';
         $this->Paginator->settings[$this->modelClass]['order'] = 'Order.id DESC';
         $this->Paginator->settings[$this->modelClass]['conditions'] = array(
             'Order.user_id' => $this->Auth->user('id'),
             'Order.status !=' => 'open'
         );
-		$this->set('orders', $this->paginate());
-	} // end index()
+        $this->set('orders', $this->paginate());
+    } // end index()
 
 /**
  * view method
@@ -70,11 +70,11 @@ class OrdersController extends AppController {
  * @param string $id
  * @return void
  */
-	public function view($id = null) {
+    public function view($id = null) {
         if (!$this->Order->exists($id)) {
-			throw new NotFoundException(__('Invalid order'));
-		}
-		$options = array(
+            throw new NotFoundException(__('Invalid order'));
+        }
+        $options = array(
             'conditions' => array('Order.' . $this->Order->primaryKey => $id),
             'contain' => array(
                 'Customer',
@@ -82,16 +82,16 @@ class OrdersController extends AppController {
                 'OrderLine' => array('Sku')
             )
         );
-		$this->set('order', $this->Order->find('first', $options));
-	} // end view()
+        $this->set('order', $this->Order->find('first', $options));
+    } // end view()
 
 /**
  * add method
  *
  * @return void
  */
-	public function add() {
-		if ($this->request->is('post')) {
+    public function add() {
+        if ($this->request->is('post')) {
             $result = $this->Order->addToCart($this->cart, $this->request->data);
             if($result) {
                 $this->cart = $result;
@@ -118,11 +118,11 @@ class OrdersController extends AppController {
                 /* Should use the $referer variable or default to the catalog page */
                 $this->redirect(array('/catalog'));
             }
-		}
+        }
         else {
             throw new MethodNotAllowedException();
         }
-	} // end add()
+    } // end add()
 
 /**
  * edit method
@@ -131,8 +131,8 @@ class OrdersController extends AppController {
  * @param string $id
  * @return void
  */
-	public function edit($id = null) {
-		if(!isset($this->cart) || empty($this->cart)) {
+    public function edit($id = null) {
+        if(!isset($this->cart) || empty($this->cart)) {
             $this->log("Uninitialized cart OrdersController::edit(): " . json_encode($_SESSION), 'debug');
             throw new InternalErrorException('Error displaying cart');
         }
@@ -140,19 +140,19 @@ class OrdersController extends AppController {
             $this->flashMessage('Your cart is empty. Browse our catalog to order items', 'flash_default');
             $this->redirect('/catalog');
         }
-		if ($this->request->is('post') || $this->request->is('put')) {
-			if ($this->Order->submit($this->request->data)) {
-				$this->flashMessage('Order has been submitted', 'flash_success');
+        if ($this->request->is('post') || $this->request->is('put')) {
+            if ($this->Order->submit($this->request->data)) {
+                $this->flashMessage('Order has been submitted', 'flash_success');
                 $this->Session->delete('Cart');
                 $this->redirect('/thanks');
-			} else {
-				$this->flashMessage('Sorry, there was an error adding during submission. Please try again.', 'flash_alert');
+            } else {
+                $this->flashMessage('Sorry, there was an error adding during submission. Please try again.', 'flash_alert');
                 $this->request->data = $this->cart;
-			}
-		} else {
+            }
+        } else {
             $this->request->data = $this->cart;
-		}
-	} // end edit()
+        }
+    } // end edit()
 
 /**
  * delete method
@@ -161,32 +161,32 @@ class OrdersController extends AppController {
  * @param string $id
  * @return void
  */
-	public function delete_item($orderLineId = null) {
+    public function delete_item($orderLineId = null) {
         $result = $this->Order->deleteItem($orderLineId);
-		if ($result) {
+        if ($result) {
             $this->cart = $result;
             $this->Session->write('Cart', $this->cart);
-			$this->flashMessage('Item has been deleted from cart', 'flash_success');
-		}
+            $this->flashMessage('Item has been deleted from cart', 'flash_success');
+        }
         else {
             $this->flashMessage('Sorry, there was an error deleting the item from your cart. Please try again.', 'flash_alert');
         }
-		$this->redirect('/cart');
-	} // end delete_item()
+        $this->redirect('/cart');
+    } // end delete_item()
 
 /**
  * admin_index method
  *
  * @return void
  */
-	public function admin_index() {
-		$this->Paginator->settings[$this->modelClass]['findType'] = 'orderIndex';
+    public function admin_index() {
+        $this->Paginator->settings[$this->modelClass]['findType'] = 'orderIndex';
         $this->Paginator->settings[$this->modelClass]['conditions'] = array(
             'Order.submitted IS NOT NULL'
         );
         $this->Paginator->settings[$this->modelClass]['order'] = 'Order.id DESC';
-		$this->set('orders', $this->paginate());
-	} // end admin_index()
+        $this->set('orders', $this->paginate());
+    } // end admin_index()
 
 /**
  * admin_edit method
@@ -195,27 +195,27 @@ class OrdersController extends AppController {
  * @param string $id
  * @return void
  */
-	public function admin_edit($id = null) {
-		if (!$this->Order->exists($id)) {
-			throw new NotFoundException('Invalid order');
-		}
-		if ($this->request->is('post') || $this->request->is('put')) {
-			if ($this->Order->save($this->request->data)) {
-				$this->flashMessage('Order has been saved', 'flash_success');
-				$this->redirect(array('action' => 'edit', $this->Order->id));
-			} else {
-				$this->flashMessage('The order could not be saved. Please, try again.', 'flash_alert');
-			}
-		} else {
+    public function admin_edit($id = null) {
+        if (!$this->Order->exists($id)) {
+            throw new NotFoundException('Invalid order');
+        }
+        if ($this->request->is('post') || $this->request->is('put')) {
+            if ($this->Order->save($this->request->data)) {
+                $this->flashMessage('Order has been saved', 'flash_success');
+                $this->redirect(array('action' => 'edit', $this->Order->id));
+            } else {
+                $this->flashMessage('The order could not be saved. Please, try again.', 'flash_alert');
+            }
+        } else {
             $this->Order->contain(array(
                 'Customer',
                 'LemUser',
                 'OrderLine' => array('Sku')
             ));
-			$options = array('conditions' => array('Order.' . $this->Order->primaryKey => $id));
-			$this->request->data = $this->Order->find('first', $options);
-		}
-	} // end admin_edit()
+            $options = array('conditions' => array('Order.' . $this->Order->primaryKey => $id));
+            $this->request->data = $this->Order->find('first', $options);
+        }
+    } // end admin_edit()
 
     /**
      * Designed to be used with a requestAction call to

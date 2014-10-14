@@ -39,8 +39,8 @@ class ProductsController extends AppController {
  *
  * @return void
  */
-	public function index($viewType = 'list') {
-		$this->set('products', $this->Product->find('all', array(
+    public function index($viewType = 'list') {
+        $this->set('products', $this->Product->find('all', array(
             'contain' => array(
                 'Sku' => array(
                     'conditions' => array('Sku.is_active' => 1),
@@ -53,27 +53,27 @@ class ProductsController extends AppController {
         )));
         $this->set('title_for_layout', 'Product Catalog');
         $this->set('viewType', $viewType);
-	} // end index()
+    } // end index()
 
 /**
  * admin_index method
  *
  * @return void
  */
-	public function admin_index() {
-		$this->set('products', $this->paginate());
+    public function admin_index() {
+        $this->set('products', $this->paginate());
         $this->set('title_for_layout', 'Administrators - Manage Products');
         $this->setBreadcrumb('Manage Products', true);
-	} // end admin_index()
+    } // end admin_index()
 
 /**
  * admin_add method
  *
  * @return void
  */
-	public function admin_add() {
-		if ($this->request->is('post')) {
-			$this->Product->create();
+    public function admin_add() {
+        if ($this->request->is('post')) {
+            $this->Product->create();
             /* Unset any empty ProductImage entries */
             $data = $this->request->data;
             if(!empty($data['ProductImage'])) {
@@ -83,16 +83,16 @@ class ProductsController extends AppController {
                     }
                 }
             }
-			if ($this->Product->saveAssociated($data)) {
-				$this->flashMessage('The product has been saved', 'flash_success');
-				$this->redirect(array('action' => 'edit', $this->Product->id));
-			} else {
-				$this->flashMessage('The product could not be saved. Please, try again.', 'flash_alert');
-			}
-		}
+            if ($this->Product->saveAssociated($data)) {
+                $this->flashMessage('The product has been saved', 'flash_success');
+                $this->redirect(array('action' => 'edit', $this->Product->id));
+            } else {
+                $this->flashMessage('The product could not be saved. Please, try again.', 'flash_alert');
+            }
+        }
         $this->set('title_for_layout', 'Administrators - Add Product');
         $this->setBreadcrumb('Add Product');
-	} // end admin_add()
+    } // end admin_add()
 
 /**
  * admin_edit method
@@ -101,11 +101,11 @@ class ProductsController extends AppController {
  * @param string $id
  * @return void
  */
-	public function admin_edit($id = null) {
-		if (!$this->Product->exists($id)) {
-			throw new NotFoundException(__('Invalid product'));
-		}
-		if ($this->request->is('post') || $this->request->is('put')) {
+    public function admin_edit($id = null) {
+        if (!$this->Product->exists($id)) {
+            throw new NotFoundException(__('Invalid product'));
+        }
+        if ($this->request->is('post') || $this->request->is('put')) {
             $data = $this->request->data;
             if(!empty($data['ProductImage'])) {
                 foreach($data['ProductImage'] as $key => $pi) {
@@ -114,23 +114,23 @@ class ProductsController extends AppController {
                     }
                 }
             }
-			if ($this->Product->saveAssociated($data)) {
-				$this->flashMessage('The product has been saved', 'flash_success');
-				$this->redirect(array('action' => 'edit', $this->Product->id));
-			} else {
+            if ($this->Product->saveAssociated($data)) {
+                $this->flashMessage('The product has been saved', 'flash_success');
+                $this->redirect(array('action' => 'edit', $this->Product->id));
+            } else {
                 $this->request->data = $data;
-				$this->flashMessage('The product could not be saved. Please, try again.', 'flash_alert');
-			}
-		} else {
-			$options = array(
+                $this->flashMessage('The product could not be saved. Please, try again.', 'flash_alert');
+            }
+        } else {
+            $options = array(
                 'conditions' => array('Product.' . $this->Product->primaryKey => $id),
                 'contain' => array('ProductImage')
             );
-			$this->request->data = $this->Product->find('first', $options);
-		}
+            $this->request->data = $this->Product->find('first', $options);
+        }
         $this->set('title_for_layout', 'Administrators - Edit Product');
         $this->setBreadcrumb('Edit Product');
-	} // end admin_edit()
+    } // end admin_edit()
 
 /**
  * admin_delete_image method
@@ -139,19 +139,19 @@ class ProductsController extends AppController {
  * @param int $productImageId
  * @return void
  */
-	public function admin_delete_image($productImageId = null) {
+    public function admin_delete_image($productImageId = null) {
         $this->Product->ProductImage->id = $productImageId;
         $productImage = $this->Product->ProductImage->read();
         $productId = $productImage['Product']['id'];
-		if (empty($productImage)) {
-			throw new NotFoundException(__('Invalid product image'));
-		}
-		if ($this->Product->ProductImage->delete()) {
-			$this->flashMessage('The product image has been deleted', 'flash_success');
-		}
-		else {
+        if (empty($productImage)) {
+            throw new NotFoundException(__('Invalid product image'));
+        }
+        if ($this->Product->ProductImage->delete()) {
+            $this->flashMessage('The product image has been deleted', 'flash_success');
+        }
+        else {
             $this->flashMessage('The product image could not be deleted. Please, try again.', 'flash_alert');
         }
-		$this->redirect(array('action' => 'edit', $productId));
-	} // end admin_delete_image()
+        $this->redirect(array('action' => 'edit', $productId));
+    } // end admin_delete_image()
 }

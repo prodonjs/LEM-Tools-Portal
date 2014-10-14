@@ -41,44 +41,44 @@ class CustomersController extends AppController {
  *
  * @return void
  */
-	public function admin_index() {
+    public function admin_index() {
         $this->Prg->commonProcess();
-		unset($this->Customer->validate['name']);
-		unset($this->Customer->validate['account_no']);
-		$this->Customer->data['Customer'] = $this->request->query;
-		if ($this->Customer->Behaviors->attached('Searchable')) {
-			$parsedConditions = $this->Customer->parseCriteria($this->request->query);
-		} else {
-			$parsedConditions = array();
-		}
-		$this->Paginator->settings[$this->modelClass]['conditions'] = $parsedConditions;
-		$this->Paginator->settings[$this->modelClass]['order'] = array($this->modelClass . '.created' => 'desc');
+        unset($this->Customer->validate['name']);
+        unset($this->Customer->validate['account_no']);
+        $this->Customer->data['Customer'] = $this->request->query;
+        if ($this->Customer->Behaviors->attached('Searchable')) {
+            $parsedConditions = $this->Customer->parseCriteria($this->request->query);
+        } else {
+            $parsedConditions = array();
+        }
+        $this->Paginator->settings[$this->modelClass]['conditions'] = $parsedConditions;
+        $this->Paginator->settings[$this->modelClass]['order'] = array($this->modelClass . '.created' => 'desc');
 
-		$this->Customer->contain(array('User', 'Order'));
-		$this->set('customers', $this->paginate());
+        $this->Customer->contain(array('User', 'Order'));
+        $this->set('customers', $this->paginate());
 
         if($this->request->is('ajax')) {
             $this->autoRender = false;
             return json_encode($this->viewVars['customers']);
         }
-	} // end admin_index()
+    } // end admin_index()
 
 /**
  * admin_add method
  *
  * @return void
  */
-	public function admin_add() {
-		if ($this->request->is('post')) {
-			$this->Customer->create();
-			if ($this->Customer->save($this->request->data)) {
-				$this->flashMessage('The customer has been saved', 'flash_success');
-				$this->redirect(array('action' => 'edit', $this->Customer->id));
-			} else {
-				$this->flashMessage('The customer could not be saved. Please, try again.', 'flash_alert');
-			}
-		}
-	} // end admin_add()
+    public function admin_add() {
+        if ($this->request->is('post')) {
+            $this->Customer->create();
+            if ($this->Customer->save($this->request->data)) {
+                $this->flashMessage('The customer has been saved', 'flash_success');
+                $this->redirect(array('action' => 'edit', $this->Customer->id));
+            } else {
+                $this->flashMessage('The customer could not be saved. Please, try again.', 'flash_alert');
+            }
+        }
+    } // end admin_add()
 
 /**
  * admin_edit method
@@ -87,21 +87,21 @@ class CustomersController extends AppController {
  * @param string $id
  * @return void
  */
-	public function admin_edit($id = null) {
-		if (!$this->Customer->exists($id)) {
-			throw new NotFoundException(__('Invalid customer'));
-		}
-		if ($this->request->is('post') || $this->request->is('put')) {
-			if ($this->Customer->save($this->request->data)) {
-				$this->flashMessage('The customer has been saved', 'flash_success');
-				$this->redirect(array('action' => 'edit', $this->Customer->id));
-			} else {
-				$this->flashMessage('The customer could not be saved. Please, try again.', 'flash_alert');
-			}
-		} else {
-			$options = array('conditions' => array('Customer.' . $this->Customer->primaryKey => $id));
-			$this->request->data = $this->Customer->find('first', $options);
-		}
-	} // end admin_edit()
+    public function admin_edit($id = null) {
+        if (!$this->Customer->exists($id)) {
+            throw new NotFoundException(__('Invalid customer'));
+        }
+        if ($this->request->is('post') || $this->request->is('put')) {
+            if ($this->Customer->save($this->request->data)) {
+                $this->flashMessage('The customer has been saved', 'flash_success');
+                $this->redirect(array('action' => 'edit', $this->Customer->id));
+            } else {
+                $this->flashMessage('The customer could not be saved. Please, try again.', 'flash_alert');
+            }
+        } else {
+            $options = array('conditions' => array('Customer.' . $this->Customer->primaryKey => $id));
+            $this->request->data = $this->Customer->find('first', $options);
+        }
+    } // end admin_edit()
 
 } // end class Customer

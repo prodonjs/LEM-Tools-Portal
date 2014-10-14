@@ -32,18 +32,18 @@ App::uses('Model', 'Model');
  * @package       app.Model
  */
 class AppModel extends Model {
-    
+
     /**
      * All models include the Containable behavior
      * @var array
      */
     public $actsAs = array('Containable');
-    
+
     /**
      * Used an expression method for the Search behavior to use an asserted checkbox to find a '0' or false value
      * @return array
      */
-    public function checkboxAsFalse() {        
+    public function checkboxAsFalse() {
         return 0;
-    } // end checkboxAsFalse()    
+    } // end checkboxAsFalse()
 }

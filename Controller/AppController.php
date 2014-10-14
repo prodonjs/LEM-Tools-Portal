@@ -29,8 +29,8 @@ App::uses('Controller', 'Controller');
  * Add your application-wide methods in the class below, your controllers
  * will inherit them.
  *
- * @package		app.Controller
- * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
+ * @package     app.Controller
+ * @link        http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
 
@@ -45,14 +45,14 @@ class AppController extends Controller {
  *
  * @var array
  */
-	public $helpers = array('Html', 'Form', 'Session', 'Time', 'Text');
+    public $helpers = array('Html', 'Form', 'Session', 'Time', 'Text');
 
 /**
  * Components
  *
  * @var array
  */
-	public $components = array(
+    public $components = array(
         'Auth',
         'Session',
         'Cookie',
@@ -81,25 +81,25 @@ class AppController extends Controller {
  * @param mixed $request
  * @param mixed $response
  */
-	public function __construct($request = null, $response = null) {
-		parent::__construct($request, $response);
-		if (Configure::read('debug')) {
-			$this->components[] = 'DebugKit.Toolbar';
-		}
-	} // end __construct()
+    public function __construct($request = null, $response = null) {
+        parent::__construct($request, $response);
+        if (Configure::read('debug')) {
+            $this->components[] = 'DebugKit.Toolbar';
+        }
+    } // end __construct()
 
 /**
  * Override beforeFilter()
  */
     public function beforeFilter() {
         $this->Auth->loginRedirect = '/';
-		$this->Auth->logoutRedirect = '/login';
-		$this->Auth->loginAction = '/login';
+        $this->Auth->logoutRedirect = '/login';
+        $this->Auth->loginAction = '/login';
         $this->Auth->authorize = array('Controller');
 
         if (in_array(strtolower($this->params['controller']), $this->publicControllers)) {
-			$this->Auth->allow();
-		}
+            $this->Auth->allow();
+        }
         $this->Paginator->settings[$this->modelClass] = $this->paginate;
 
         /* Return immediately if this is from a requestAction call */
@@ -140,15 +140,15 @@ class AppController extends Controller {
  *
  * @return boolean
  */
-	public function isAuthorized() {
-		if ($this->Auth->user() && $this->params['prefix'] !== 'admin') {
-			return true;
-		}
-		if ($this->params['prefix'] === 'admin' && $this->Auth->user('is_admin')) {
-			return true;
-		}
-		return false;
-	} // end isAuthorized()
+    public function isAuthorized() {
+        if ($this->Auth->user() && $this->params['prefix'] !== 'admin') {
+            return true;
+        }
+        if ($this->params['prefix'] === 'admin' && $this->Auth->user('is_admin')) {
+            return true;
+        }
+        return false;
+    } // end isAuthorized()
 
     /**
      * Convenience wrapper for $this->Session->setFlash

@@ -51,16 +51,16 @@ class LemUsersController extends UsersController {
          * Override Auth settings
          */
         $this->Auth->authenticate = array(
-			'Form' => array(
-				'fields' => array(
-					'username' => 'username',
-					'password' => 'password'
+            'Form' => array(
+                'fields' => array(
+                    'username' => 'username',
+                    'password' => 'password'
                 ),
-				'userModel' => 'LemUser',
-				'scope' => array(
-					'LemUser.active' => 1,
+                'userModel' => 'LemUser',
+                'scope' => array(
+                    'LemUser.active' => 1,
                     'LemUser.customer_id IS NOT NULL',
-					'LemUser.email_verified' => 1
+                    'LemUser.email_verified' => 1
                 )
             )
         );
@@ -94,9 +94,9 @@ class LemUsersController extends UsersController {
  */
     public function login() {
         if ($this->Auth->user()) {
-			$this->flashMessage('You are already logged in', 'flash_default');
-			$this->redirect('/');
-		}
+            $this->flashMessage('You are already logged in', 'flash_default');
+            $this->redirect('/');
+        }
         /**
          * If the supplied username validates as an e-mail address, change the Auth component
          * settings
@@ -116,77 +116,77 @@ class LemUsersController extends UsersController {
  * @param string $id User ID
  * @return void
  */
-	public function edit() {
-		if (!empty($this->request->data)) {
- 	        if ($this->LemUser->edit($this->Auth->user('id'), $this->request->data)) {
-				$this->flashMessage('Your profile was saved', 'flash_success');
+    public function edit() {
+        if (!empty($this->request->data)) {
+            if ($this->LemUser->edit($this->Auth->user('id'), $this->request->data)) {
+                $this->flashMessage('Your profile was saved', 'flash_success');
                 $this->redirect(array('action' => 'edit'));
-			} else {
-				$this->flashMessage('Your profile could not be saved. Please try again.', 'flash_alert');
+            } else {
+                $this->flashMessage('Your profile could not be saved. Please try again.', 'flash_alert');
                 $this->request->data['UserDetail']['LemUser'] = $this->request->data['UserDetail'];
-			}
-		} else {
-			$this->LemUser->edit($this->Auth->user('id'));
-			$this->request->data = $this->LemUser->data;
-		}
-	} // end edit()
+            }
+        } else {
+            $this->LemUser->edit($this->Auth->user('id'));
+            $this->request->data = $this->LemUser->data;
+        }
+    } // end edit()
 
 /**
  * User register action
  *
  * @return void
  */
-	public function add() {
-		if ($this->Auth->user()) {
-			$this->Session->setFlash(__d('users', 'You are already registered and logged in!'));
-			$this->redirect('/');
-		}
+    public function add() {
+        if ($this->Auth->user()) {
+            $this->Session->setFlash(__d('users', 'You are already registered and logged in!'));
+            $this->redirect('/');
+        }
 
-		if (!empty($this->request->data)) {
-			$user = $this->{$this->modelClass}->register($this->request->data);
-			if ($user !== false) {
-				$this->_sendVerificationEmail(array_merge($this->request->data, $this->{$this->modelClass}->data), array(
+        if (!empty($this->request->data)) {
+            $user = $this->{$this->modelClass}->register($this->request->data);
+            if ($user !== false) {
+                $this->_sendVerificationEmail(array_merge($this->request->data, $this->{$this->modelClass}->data), array(
                     'subject' => 'LEM Tools :: Registration Received',
                     'template' => $this->_pluginDot() . 'account_registration'
                 ));
-				$this->redirect(array('controller' => 'pages', 'action' => 'display', 'registered'));
-			} else {
-				unset($this->request->data[$this->modelClass]['password']);
-				unset($this->request->data[$this->modelClass]['temppassword']);
-				$this->flashMessage('Your account could not be created. Please check your inputs and try again.', 'flash_alert');
-			}
-		}
-	} //end add()
+                $this->redirect(array('controller' => 'pages', 'action' => 'display', 'registered'));
+            } else {
+                unset($this->request->data[$this->modelClass]['password']);
+                unset($this->request->data[$this->modelClass]['temppassword']);
+                $this->flashMessage('Your account could not be created. Please check your inputs and try again.', 'flash_alert');
+            }
+        }
+    } //end add()
 
 /**
  * Admin Index
  *
  * @return void
  */
-	public function admin_index() {
-		$this->Prg->commonProcess();
-		unset($this->{$this->modelClass}->validate['username']);
-		unset($this->{$this->modelClass}->validate['email']);
+    public function admin_index() {
+        $this->Prg->commonProcess();
+        unset($this->{$this->modelClass}->validate['username']);
+        unset($this->{$this->modelClass}->validate['email']);
         unset($this->{$this->modelClass}->validate['email_verified']);
-		$this->{$this->modelClass}->data[$this->modelClass] = $this->request->query;
-		if ($this->{$this->modelClass}->Behaviors->attached('Searchable')) {
-			$parsedConditions = $this->{$this->modelClass}->parseCriteria($this->request->query);
-		} else {
-			$parsedConditions = array();
-		}
-		$this->Paginator->settings[$this->modelClass]['conditions'] = $parsedConditions;
-		$this->Paginator->settings[$this->modelClass]['order'] = array($this->modelClass . '.created' => 'desc');
+        $this->{$this->modelClass}->data[$this->modelClass] = $this->request->query;
+        if ($this->{$this->modelClass}->Behaviors->attached('Searchable')) {
+            $parsedConditions = $this->{$this->modelClass}->parseCriteria($this->request->query);
+        } else {
+            $parsedConditions = array();
+        }
+        $this->Paginator->settings[$this->modelClass]['conditions'] = $parsedConditions;
+        $this->Paginator->settings[$this->modelClass]['order'] = array($this->modelClass . '.created' => 'desc');
 
-		$this->{$this->modelClass}->recursive = 0;
-		$this->set('users', $this->paginate());
-	} // end admin_index()
+        $this->{$this->modelClass}->recursive = 0;
+        $this->set('users', $this->paginate());
+    } // end admin_index()
 
 /**
  * Activates the specified user and sends their confirmation e-mail
  *
  * @return void
  */
-	public function admin_confirm($userId) {
+    public function admin_confirm($userId) {
         $confirmed = $this->LemUser->confirm($userId);
         if(($confirmed)) {
             $this->_sendVerificationEmail($confirmed, array(
@@ -199,29 +199,29 @@ class LemUsersController extends UsersController {
             $this->Session->setFlash("Unable to confirm user!");
         }
         $this->redirect(array('action' => 'index'));
-	} // end admin_confirm()
+    } // end admin_confirm()
 
 
 /**
  * Override the admin_add() to make sure customers are set as a view variable
  */
-	public function admin_add() {
+    public function admin_add() {
         parent::admin_add();
         $this->set('customers', $this->getCustomerList());
-	} // end admin_add()
+    } // end admin_add()
 
 /**
   * Override the admin_edit() to make sure customers are set as a view variable
   */
-	public function admin_edit($userId = null) {
+    public function admin_edit($userId = null) {
         parent::admin_edit($userId);
         $this->set('customers', $this->getCustomerList());
-	} // end admin_edit()
+    } // end admin_edit()
 
 /**
   * Resets a user's password and sends them the confirmation e-mail
   */
-	public function admin_reset_password($userId = null) {
+    public function admin_reset_password($userId = null) {
         $this->LemUser->recursive = -1;
         $this->LemUser->id = $userId;
         $this->request->data = $this->LemUser->read();
@@ -231,7 +231,7 @@ class LemUsersController extends UsersController {
         $this->_sendPasswordReset(true);
 
         $this->redirect(array('admin' => true, 'action' => 'edit', $userId));
-	} // end admin_reset_password()
+    } // end admin_reset_password()
 
     /**
      * Designed to be used with a requestAction call to

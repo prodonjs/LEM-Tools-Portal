@@ -23,9 +23,9 @@ class Order extends AppModel {
             'invoice' => array(
                 'nameCallback' => 'nameCallback',
                 'uploadDir' => self::INVOICES_FOLDER,
-    			'overwrite' => true,
-    			'stopSave' => true,
-    			'allowEmpty' => true
+                'overwrite' => true,
+                'stopSave' => true,
+                'allowEmpty' => true
             )
         )
     );
@@ -35,95 +35,95 @@ class Order extends AppModel {
  *
  * @var array
  */
-	public $validate = array(
-		'customer_id' => array(
-			'numeric' => array(
-				'rule' => array('numeric')
-			)
-		),
-		'user_id' => array(
-			'numeric' => array(
-				'rule' => array('numeric')
-			)
-		),
-		'status' => array(
-			'notempty' => array(
-				'rule' => array('isValidStatus'),
-				'message' => 'Order status must be specified from the list of valid values'
-			)
-		),
-		'requested_delivery' => array(
-			'date' => array(
-				'rule' => array('date', 'ymd'),
-				'message' => 'Please specify your desired delivery date',
+    public $validate = array(
+        'customer_id' => array(
+            'numeric' => array(
+                'rule' => array('numeric')
+            )
+        ),
+        'user_id' => array(
+            'numeric' => array(
+                'rule' => array('numeric')
+            )
+        ),
+        'status' => array(
+            'notempty' => array(
+                'rule' => array('isValidStatus'),
+                'message' => 'Order status must be specified from the list of valid values'
+            )
+        ),
+        'requested_delivery' => array(
+            'date' => array(
+                'rule' => array('date', 'ymd'),
+                'message' => 'Please specify your desired delivery date',
                 'allowEmpty' => true
-			)
-		),
+            )
+        ),
         'work_order_no' => array(
-			'alphanumeric' => array(
-				'rule' => array('alphanumeric'),
-				'message' => 'Work order number must be alphanumeric',
-				'allowEmpty' => true
-			)
-		),
-		'invoice_no' => array(
-			'alphanumeric' => array(
-				'rule' => array('alphanumeric'),
-				'message' => 'Invoice number must be alphanumeric',
-				'allowEmpty' => true
-			)
-		),
+            'alphanumeric' => array(
+                'rule' => array('alphanumeric'),
+                'message' => 'Work order number must be alphanumeric',
+                'allowEmpty' => true
+            )
+        ),
+        'invoice_no' => array(
+            'alphanumeric' => array(
+                'rule' => array('alphanumeric'),
+                'message' => 'Invoice number must be alphanumeric',
+                'allowEmpty' => true
+            )
+        ),
         'tracking_no' => array(
-			'alphanumeric' => array(
-				'rule' => array('alphanumeric'),
-				'message' => 'Tracking number must be alphanumeric',
-				'allowEmpty' => true
-			)
-		)
-	);
+            'alphanumeric' => array(
+                'rule' => array('alphanumeric'),
+                'message' => 'Tracking number must be alphanumeric',
+                'allowEmpty' => true
+            )
+        )
+    );
 
 /**
  * belongsTo associations
  *
  * @var array
  */
-	public $belongsTo = array(
-		'Customer' => array(
-			'className' => 'Customer',
-			'foreignKey' => 'customer_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
-		'LemUser' => array(
-			'className' => 'LemUser',
-			'foreignKey' => 'user_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
-	);
+    public $belongsTo = array(
+        'Customer' => array(
+            'className' => 'Customer',
+            'foreignKey' => 'customer_id',
+            'conditions' => '',
+            'fields' => '',
+            'order' => ''
+        ),
+        'LemUser' => array(
+            'className' => 'LemUser',
+            'foreignKey' => 'user_id',
+            'conditions' => '',
+            'fields' => '',
+            'order' => ''
+        )
+    );
 
 /**
  * hasMany associations
  *
  * @var array
  */
-	public $hasMany = array(
-		'OrderLine' => array(
-			'className' => 'OrderLine',
-			'foreignKey' => 'order_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => 'OrderLine.line_no',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		)
-	);
+    public $hasMany = array(
+        'OrderLine' => array(
+            'className' => 'OrderLine',
+            'foreignKey' => 'order_id',
+            'dependent' => false,
+            'conditions' => '',
+            'fields' => '',
+            'order' => 'OrderLine.line_no',
+            'limit' => '',
+            'offset' => '',
+            'exclusive' => '',
+            'finderQuery' => '',
+            'counterQuery' => ''
+        )
+    );
 
     /**
      * Custom find methods
@@ -327,8 +327,8 @@ class Order extends AppModel {
  * @param string $name
  * @param Transit\File $file
  */
-	public function nameCallback($name, Transit\File $file) {
-	    return "invoice_{$this->data['Order']['invoice_no']}_order_{$this->data['Order']['id']}";
-	} // end nameCallback()
+    public function nameCallback($name, Transit\File $file) {
+        return "invoice_{$this->data['Order']['invoice_no']}_order_{$this->data['Order']['id']}";
+    } // end nameCallback()
 
 } // end class Order
